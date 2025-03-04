@@ -4,7 +4,7 @@ networkx==2.5
 transformers==4.4.2
 pandas==1.1.3
 scikit_learn==0.24.1
-torch==1.17
+torch==1.13.1
 packaging==20.4
 
 # My additions

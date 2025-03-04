@@ -9,7 +9,7 @@ from flair.data import Sentence
 
 import sys
 sys.path.append("../") 
-from help_funcs_wei import  parse_args
+from help_funcs import  parse_args
 args2 = parse_args()
 
 # metric = losses.TripletMarginLoss(margin=args.triplet_margin, distance=CosineSimilarity())
@@ -60,7 +60,7 @@ class MyTrainer(Trainer):
         train_dataset = self.train_dataset
         data_collator = self.data_collator
         dataloader_params = {
-            "batch_size": self._train_batch_size,
+            "batch_size": 128,
             "collate_fn": data_collator,
             "num_workers": self.args.dataloader_num_workers,
             "pin_memory": self.args.dataloader_pin_memory,

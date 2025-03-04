@@ -211,7 +211,8 @@ def load_csv( path ) :
 
 def get_result(path, model, mode, languages, if_tokenize, gen_result= False, not_print = False):
   
-    basic_path = '/mnt/parscratch/users/ac1whe/To_stanage/SubTaskB'
+    # basic_path = '/mnt/parscratch/users/ac1whe/To_stanage/SubTaskB'
+    basic_path = '/cs/student/projects1/2021/cbarber/Enhancing-Idiomatic-Representation-in-Multiple-Languages/SubTaskB'
     outpath = path 
     dev_location = basic_path + '/EvaluationData/' + mode+ '.csv'
     formated_file_location = basic_path +"/EvaluationData/" + mode+ ".submission_format.csv"

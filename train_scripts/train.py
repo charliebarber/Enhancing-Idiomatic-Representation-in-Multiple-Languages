@@ -11,15 +11,16 @@ from datasets import load_dataset
 
 import os
 from sentence_transformers    import SentenceTransformer
-from help_funcs_wei import  parse_args
+from help_funcs import parse_args
 import zipfile
 import logging
 
-from help_funcs_wei import get_result_trainer,get_similarities, prepare_eval_data2, get_result,get_gold_labels
+from help_funcs import get_result_trainer,get_similarities, prepare_eval_data2, get_result,get_gold_labels
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 from src.metric_learning_wei import MyTrainer, MetricLearningDataset_pairwise_trainer, MetricLearningDataset_pairwise_trainer_eval
+# from src.metric_learning import MyTrainer, MetricLearningDataset_pairwise_trainer, MetricLearningDataset_pairwise_trainer_eval
 
 logging.disable(logging.WARNING)
 torch.manual_seed(33)
@@ -88,8 +89,8 @@ def main(args):
             train_valid_test_dataset = load_dataset('csv', data_files=['./train_data/best_data_trainer.csv','./train_data/gold_relable.csv', './train_data/sliver_relable.csv'])
         if args.add_idoms_to_tokenizer:
             idioms = []
-            with open('./train_data/train_idioms_add.txt') as f1:
-            # with open('./train_data/added_tokens.txt') as f1:
+            # with open('./train_data/train_idioms_add.txt') as f1:
+            with open('./train_data/added_tokens.txt') as f1:
 
                 for idiom in f1:
                     idioms.append(idiom.strip('\n'))
@@ -138,7 +139,7 @@ def main(args):
             report_to="none",
             logging_strategy ="epoch",
             disable_tqdm=args.disable_prog_bar,
-            local_rank=1,
+            # local_rank=1,
 
             # do_eval = True,
             # evaluation_strategy='epoch'
@@ -248,11 +249,11 @@ def main(args):
         zip_file.write(result_path,'./submission/task2_subtaskb.csv')
         zip_file.close()
 
-    print(all_score)
-    print(colored(idiom_score, 'green'))
-    print(STS_score)
-    print(train_losses)
-    print(sum(all_score)/len(all_score))
+    print(f"all_score: {all_score}")
+    print(f"idiom_score: {colored(idiom_score, 'green')}")
+    print(f"STS_score: {STS_score}")
+    print(f"train_losses: {train_losses}")
+    print(f"sum(all_score) / len(all_score): {sum(all_score)/len(all_score)}")
 
     
 if __name__ == '__main__':
