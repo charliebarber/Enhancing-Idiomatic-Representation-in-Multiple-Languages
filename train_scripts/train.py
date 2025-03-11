@@ -198,7 +198,7 @@ def main(args):
 
     print('Starting evaluation...')
 
-    if args.train_model:
+    if args.train_model or args.evaluate_trained_model:
         m = int(len(train_set)/args.train_batch_size) +1
         n = m*3
         # n = 480

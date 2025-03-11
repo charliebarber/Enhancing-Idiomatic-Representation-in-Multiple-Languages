@@ -70,6 +70,7 @@ def parse_args():
     parser.add_argument('--pad_in_eos', action="store_true")
     parser.add_argument('--no_progress_bar', action="store_true")
     parser.add_argument('--mean_layer_nums', help='choose numbers of layer to mean', default=4, type=int)    
+    parser.add_argument('--evaluate_trained_model', help="Evaluate the trained model", action="store_true")
 
     args = parser.parse_args()
     return args
@@ -210,7 +211,7 @@ def load_csv( path ) :
   return header, data
 
 def get_result(path, model, mode, languages, if_tokenize, gen_result= False, not_print = False):
-  
+    print("get_result called")
     # basic_path = '/mnt/parscratch/users/ac1whe/To_stanage/SubTaskB'
     basic_path = '/cs/student/projects1/2021/cbarber/Enhancing-Idiomatic-Representation-in-Multiple-Languages/SubTaskB'
     outpath = path 
@@ -218,7 +219,9 @@ def get_result(path, model, mode, languages, if_tokenize, gen_result= False, not
     formated_file_location = basic_path +"/EvaluationData/" + mode+ ".submission_format.csv"
     # breakpoint()
      
+    print("Getting similarities")
     dev_sims  = get_similarities(dev_location, model, languages, tokenize1 = True)
+    print("Inserting into submission")
     submission_data = insert_to_submission( languages, [ 'fine_tune' ], dev_sims, formated_file_location )
     
     
@@ -250,6 +253,7 @@ def get_result(path, model, mode, languages, if_tokenize, gen_result= False, not
       results_file    = os.path.join( outpath+ '/submission/', 'task2_subtaskb.csv')
       write_csv(submission_data, results_file )
       return results_file
+    
 def get_result_trainer(eval_preds):
   
 

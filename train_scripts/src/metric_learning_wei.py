@@ -60,7 +60,7 @@ class MyTrainer(Trainer):
         train_dataset = self.train_dataset
         data_collator = self.data_collator
         dataloader_params = {
-            "batch_size": 128,
+            "batch_size": self.args.train_batch_size,
             "collate_fn": data_collator,
             "num_workers": self.args.dataloader_num_workers,
             "pin_memory": self.args.dataloader_pin_memory,
